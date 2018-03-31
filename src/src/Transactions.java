@@ -9,6 +9,7 @@ public class Transactions {
     private Connection con = null;
     private Statement statement = null;
     private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
     public Transactions() {
         String url="jdbc:mysql://"+DB.host+":"+DB.port+"/"+DB.db_name+"?useUnicode=true&characterEncoding=utf8";
@@ -36,16 +37,13 @@ public class Transactions {
         ps.executeUpdate();
     }
 
-    public void ForgotPassword(String email,String newPassword) throws SQLException{
-        String query = "Delete Password from customers where Email = ?";
+    public void ForgotPassword(String newPassword,String email) throws SQLException{
+        String query = "UPDATE customers SET password = ? WHERE Email = ?";
         ps = con.prepareStatement(query);
-        System.out.println("Password Silindi");
-        String password = "Insert into customers(password) values(?,?,?,?,?,?)";
-        ps = con.prepareStatement(password);
+        System.out.println("Password Değişti");
         ps.setString(1,newPassword);
+        ps.setString(2,email);
         ps.executeUpdate();
-
-
     }
 
     public boolean Login(String userName, String password) throws SQLException {
@@ -57,12 +55,51 @@ public class Transactions {
         return rs.next();
     }
 
-    //public void AdminEntrance(){
-
-    //}
     public void Remove(){} //admin booking silecek
-    public void TicketBooking(){} // customer
-    public void Payment(){} // customer
+
+    public void TicketBooking(int id) throws SQLException {
+        statement = con.createStatement();
+        if (id == 1){
+            rs = statement.executeQuery("Select * from buses where id = 1");
+            while(rs.next()){
+                System.out.print(rs.getString(1)+"\t");
+                System.out.print(rs.getString(2)+"\t");
+                System.out.println(rs.getString(3));
+            }
+        }
+        if (id == 2){
+            rs = statement.executeQuery("Select * from buses where id = 2");
+            while(rs.next()){
+                System.out.print(rs.getString(1)+"\t");
+                System.out.print(rs.getString(2)+"\t");
+                System.out.println(rs.getString(3));
+            }
+        }
+        if (id == 3){
+            rs = statement.executeQuery("Select * from buses where id = 3");
+            while(rs.next()){
+                System.out.print(rs.getString(1)+"\t");
+                System.out.print(rs.getString(2)+"\t");
+                System.out.println(rs.getString(3));
+            }
+        }
+        if (id == 4){
+            rs = statement.executeQuery("Select * from buses where id = 4");
+            while(rs.next()){
+                System.out.print(rs.getString(1)+"\t");
+                System.out.print(rs.getString(2)+"\t");
+                System.out.println(rs.getString(3));
+            }
+        }
+
+
+    } // customer
+
+    public void Payment(){
+        String query = "";
+
+    } // customer
+
     public void TicketChecking(){} // admin
 
 }
