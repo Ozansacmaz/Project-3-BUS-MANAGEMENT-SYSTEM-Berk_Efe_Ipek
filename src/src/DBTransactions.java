@@ -5,13 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Transactions {
+public class DBTransactions {
     private Connection con = null;
     private Statement statement = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public Transactions() {
+    public DBTransactions() {
         String url="jdbc:mysql://"+DB.host+":"+DB.port+"/"+DB.db_name+"?useUnicode=true&characterEncoding=utf8";
         try {
             Class.forName("com.mysql.jdbc.Driver");
